@@ -1,14 +1,26 @@
 
-var xhttp = new XMLHttpRequest();
-xhttp.open("GET", "https://data.bmkg.go.id/DataMKG/MEWS/DigitalForecast/DigitalForecast-Indonesia.xml", true);
+window.onload =()=> {
+    const xhttp = new XMLHttpRequest();
+    xhttp.onload =()=> getxmldat(xhttp);
+    xhttp.open("GET", "https://data.bmkg.go.id/DataMKG/MEWS/DigitalForecast/DigitalForecast-Indonesia.xml");
+    xhttp.send();
+}
 
-var xmlval;
-xhttp.onreadystatechange =()=> {
-    if(this.readyState == 4){
-        console.log(this.responseXML);
+getxmldat =(xml)=> {
+    let xmldat = xml.responseXML.getElementsByTagName("forecast")[0];
+    let ladata = []
+    let lodata = []
+
+    for(let i = 3; i < xmldat.childNodes.length - 1; i++){
+        let la = xmldat.childNodes[i].getAttribute("latitude")
+        let lo = xmldat.childNodes[i].getAttribute("longitude")
+
+        ladata.push(la)
+        lodata.push(lo)
     }
 }
-xhttp.send(null);
 
+fnearest =(arr, val)=> {
+    return arr.reduce((total, num)=> Math.abs(total) > Math.abs(num - val) ? num - val : total) + val;
+}
 
-const nearest =(arr, val)=> arr.reduce((p, n) => (Math.abs(p) > Math.abs(n - val) ? n - val : p), Infinity) + val;
