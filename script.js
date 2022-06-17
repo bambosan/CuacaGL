@@ -9,7 +9,7 @@ fnear = (arr, val) => {
 }
 
 const shader = new PetitGL(undefined, [0,0,0,1])
-	.resize(innerWidth, innerHeight-4)
+	.resize(innerWidth, innerHeight)
 	.att([ {name:'_uv',data:[-1,-1, 1,-1, -1,1, 1,1],slice:2} ])
 	.ibo([ {name:'ibo',data:[0,1,2, 3,2,1]} ])
 	.compile(
