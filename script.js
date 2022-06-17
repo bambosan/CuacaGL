@@ -8,7 +8,6 @@ fnearest = (arr, val) => {
     return arr.reduce((total, num)=> Math.abs(total) > Math.abs(num - val) ? num - val : total) + val;
 }
 
-var locnam =[]
 loadjson('https://cuaca-gempa-rest-api.vercel.app/weather/indonesia').then((obj) => {
     let la = [];
     let lo = [];
@@ -31,5 +30,4 @@ loadjson('https://cuaca-gempa-rest-api.vercel.app/weather/indonesia').then((obj)
         });
     } else console.log("geoloaction not supported by browser");
 });
-console.log(locnam);
 
