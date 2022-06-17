@@ -133,7 +133,7 @@ load('https://cuaca-gempa-rest-api.vercel.app/weather/indonesia').then(obj => {
             };
             loop();
             document.body.insertAdjacentHTML("beforeend", `
-<div style="position: fixed; width: 100vw; height: 100vh;">
+<div style="position: fixed; width: 100vw;">
 <pre style="padding: 10px; font-size: 1.2em; color: white">
 Lokasi : ${obj.data.areas[locp].domain}
 ${dval.desc[6]} : ${dval.val[6]}
@@ -148,7 +148,10 @@ ${dval.desc[2]} : ${dval.val[2]}
 
 ${dval.desc[7]} : ${dval.val[7]}
 ${dval.desc[8]} : ${dval.val[8]}
-</pre></div>`)
+this project still wip..
+
+PetitGL library by <a href="https://mcbeeringi.github.io/petitgl/">McbeEringi</a>
+</pre> </div>`)
             document.body.appendChild(shader.c);
             //console.log(dval);
         });
