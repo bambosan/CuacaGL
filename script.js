@@ -18,7 +18,7 @@ const desc = ['Banda Aceh', 'Denpasar', 'Serang', 'Bengkulu', 'Yogyakarta', 'Jak
 
 const shaderprog = new PetitGL(undefined, [0,0,0,1]).resize(innerWidth, innerHeight).att([ {name:'_uv',data:[-1,-1, 1,-1, -1,1, 1,1], slice:2} ]).ibo([ {name:'ibo',data:[0,1,2, 3,2,1]} ]).compile('weatherdisp',vshader,fshader).defAtt('weatherdisp', ['UV']).defUni('weatherdisp', ['time', 'ws', 'res']);
 
-fnear = (arr, val) => { return arr.reduce((total, num) => Math.abs(total) > Math.abs(num - val) ? num - val : total) + val; }
+const fnear = (arr, val) => arr.reduce((e, i) => (Math.abs(e) > Math.abs(i - val) ? i - val : e), Infinity) + val;
 
 main = async() => {
     var obj = await (await fetch('https://cuaca-gempa-rest-api.vercel.app/weather/jawa-barat')).json();
@@ -64,12 +64,13 @@ main = async() => {
             };
             loop();
 
-            document.body.insertAdjacentHTML("beforeend", `
+            document.body.insertAdjacentHTML('beforeend', `
 <div id="con">
     <p>${pos.coords.latitude}, ${pos.coords.longitude}</p>
 </div>`)
             //document.body.appendChild(shaderprog.c);
         });
-    } else document.body.insertAdjacentHTML(`<p>geoloaction not supported by browser</p>`);
+    } else document.body.insertAdjacentHTML('beforeend', `<p>geoloaction not supported by browser</p>`);
 }
+
 main();
