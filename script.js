@@ -20,12 +20,6 @@ const shaderprog = new PetitGL(undefined, [0,0,0,1]).resize(innerWidth, innerHei
 
 fnear = (arr, val) => { return arr.reduce((total, num) => Math.abs(total) > Math.abs(num - val) ? num - val : total) + val; }
 
-var urlapi = ''
-genurl = () => {
-
-}
-genurl();
-
 main = async() => {
     let obj = await (await fetch('https://cuaca-gempa-rest-api.vercel.app/weather/jawa-barat')).json();
     console.log(obj);
