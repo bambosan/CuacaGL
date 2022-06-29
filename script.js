@@ -21,21 +21,21 @@ const shaderprog = new PetitGL(undefined, [0,0,0,1]).resize(innerWidth, innerHei
 fnear = (arr, val) => { return arr.reduce((total, num) => Math.abs(total) > Math.abs(num - val) ? num - val : total) + val; }
 
 main = async() => {
-    let obj = await (await fetch('https://cuaca-gempa-rest-api.vercel.app/weather/jawa-barat')).json();
-    let lat = [], lon = [], cn = [];
+    var obj = await (await fetch('https://cuaca-gempa-rest-api.vercel.app/weather/jawa-barat')).json();
+    var lat = []; var lon = []; var cn = [];
     obj.data.areas.forEach(e => {
-        lat.push(e.latitude), lon.push(e.longitude), cn.push(e.description);
+        lat.push(e.latitude); lon.push(e.longitude); cn.push(e.description);
     });
 
     if(navigator.geolocation){
-        navigator.geolocation.getCurrentPosition((pos) => {
-            let nla = fnear(lat, pos.coords.latitude);
-            let nlo = fnear(lon, pos.coords.longitude), locp = 0;
+        navigator.geolocation.getCurrentPosition(pos => {
+            var nla = fnear(lat, pos.coords.latitude);
+            var nlo = fnear(lon, pos.coords.longitude); let locp = 0;
             obj.data.areas.forEach((e, i) => { if(lat[i] == nla || lon[i] == nlo) locp = i; });
 
             console.log(pos.coords.latitude);
             console.log(pos.coords.longitude);
-            let dval = [], ddesc = [];
+            var dval = []; var ddesc = [];
             obj.data.areas[locp].params.forEach((e, i) => {
                 let ho = new Date().getHours();
                 switch(i){
