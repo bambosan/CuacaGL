@@ -22,7 +22,6 @@ fnear = (arr, val) => { return arr.reduce((total, num) => Math.abs(total) > Math
 
 main = async() => {
     let obj = await (await fetch('https://cuaca-gempa-rest-api.vercel.app/weather/jawa-barat')).json();
-    console.log(obj);
     let lat = [], lon = [], cn = [];
     obj.data.areas.forEach(e => {
         lat.push(e.latitude), lon.push(e.longitude), cn.push(e.description);
@@ -34,24 +33,25 @@ main = async() => {
             let nlo = fnear(lon, pos.coords.longitude), locp = 0;
             obj.data.areas.forEach((e, i) => { if(lat[i] == nla || lon[i] == nlo) locp = i; });
 
+            console.log(pos.coords.latitude);
+            console.log(pos.coords.longitude);
             let dval = [], ddesc = [];
-            obj.data.areas[locp].params.forEach((d, i) => {
+            obj.data.areas[locp].params.forEach((e, i) => {
                 let ho = new Date().getHours();
                 switch(i){
-                    case 1: dval.push(d.times[0].value); break;
-                    case 2: dval.push(d.times[0].celcius); break;
-                    case 3: dval.push(d.times[0].value); break;
-                    case 4: dval.push(d.times[0].celcius); break;
-                    case 5: dval.push(d.times[ho%4].celcius); break;
-                    case 6: dval.push(d.times[ho%4].name); break;
-                    case 7: dval.push(d.times[ho%4].card); break;
-                    case 8: dval.push(d.times[ho%4].kph); break;
-                    default: dval.push(d.times[ho%4].value);
+                    case 1: dval.push(e.times[0].value); break;
+                    case 2: dval.push(e.times[0].celcius); break;
+                    case 3: dval.push(e.times[0].value); break;
+                    case 4: dval.push(e.times[0].celcius); break;
+                    case 5: dval.push(e.times[ho%4].celcius); break;
+                    case 6: dval.push(e.times[ho%4].name); break;
+                    case 7: dval.push(e.times[ho%4].card); break;
+                    case 8: dval.push(e.times[ho%4].kph); break;
+                    default: dval.push(e.times[ho%4].value);
                 }
-                ddesc.push(d.description);
+                ddesc.push(e.description);
             });
 
-            console.log(obj.data.areas[locp]);
             const loop = () => {
                 requestAnimationFrame(loop);
                 shaderprog.uni('weatherdisp',
@@ -66,10 +66,10 @@ main = async() => {
 
             document.body.insertAdjacentHTML("beforeend", `
 <div id="con">
-    <p>${obj.data.areas[locp].description}</p>
+    <p>${pos.coords.latitude}, ${pos.coords.longitude}</p>
 </div>`)
-            document.body.appendChild(shaderprog.c);
+            //document.body.appendChild(shaderprog.c);
         });
-    } else console.log("geoloaction not supported by browser");
+    } else document.body.insertAdjacentHTML(`<p>geoloaction not supported by browser</p>`);
 }
 main();
