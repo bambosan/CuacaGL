@@ -68,7 +68,7 @@ main = async() => {
 <div id="con">
     <p>${pos.coords.latitude}, ${pos.coords.longitude}</p>
 </div>`)
-            //document.body.appendChild(shaderprog.c);
+            document.body.appendChild(shaderprog.c);
         });
     } else document.body.insertAdjacentHTML('beforeend', `<p>geoloaction not supported by browser</p>`);
 }
