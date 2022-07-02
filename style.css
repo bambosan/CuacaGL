@@ -1,1 +1,9 @@
 *{ margin: 0; padding: 0 }
+#con{
+    background: transparent;
+}
+
+#con #txt{
+    font-size: 3em;
+    
+}
